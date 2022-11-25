@@ -26,6 +26,27 @@ namespace FinalSurveyPractice.Controllers
         }
 
         // JWT ----------------------------------------------------------------
+        [HttpPost("register")]
+        public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegisterDto request)
+        {
+            var rp = await _authService.Register(
+                new User
+                {
+                    Name = request.Name,
+                    FirstSurname = request.FirstSurname,
+                    LastSurname = request.LastSurname,
+                    Status = request.Status,
+                    Photo = request.Photo,
+                }, request.Password
+            );
+
+            if (!rp.Success)
+            {
+                return BadRequest(rp);
+            }
+            return Ok(rp);
+        }
+
         [HttpPost("login")]
         public async Task<ActionResult<ServiceResponse<string>>> Login(UserLoginDto request)
         {

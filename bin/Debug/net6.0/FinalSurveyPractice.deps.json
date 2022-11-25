@@ -8,14 +8,40 @@
     ".NETCoreApp,Version=v6.0": {
       "FinalSurveyPractice/1.0.0": {
         "dependencies": {
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.11",
           "Microsoft.EntityFrameworkCore.Design": "7.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.10",
-          "Swashbuckle.AspNetCore": "6.2.3"
+          "Swashbuckle.AspNetCore": "6.2.3",
+          "Swashbuckle.AspNetCore.Filters": "7.0.6"
         },
         "runtime": {
           "FinalSurveyPractice.dll": {}
+        }
+      },
+      "AutoMapper/12.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/AutoMapper.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.0.0"
+          }
+        }
+      },
+      "AutoMapper.Extensions.Microsoft.DependencyInjection/12.0.0": {
+        "dependencies": {
+          "AutoMapper": "12.0.0",
+          "Microsoft.Extensions.Options": "7.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.0.0"
+          }
         }
       },
       "Azure.Core/1.24.0": {
@@ -86,6 +112,17 @@
         }
       },
       "MessagePackAnalyzer/2.1.152": {},
+      "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.11": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.21.0"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "assemblyVersion": "6.0.11.0",
+            "fileVersion": "6.0.1122.52304"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Razor.Language/6.0.0": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Razor.Language.dll": {
@@ -311,7 +348,7 @@
       },
       "Microsoft.CodeAnalysis.CSharp.Scripting/4.0.0": {
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.CSharp": "4.7.0",
           "Microsoft.CodeAnalysis.CSharp": "4.0.0",
           "Microsoft.CodeAnalysis.Common": "4.0.0",
           "Microsoft.CodeAnalysis.Scripting.Common": "4.0.0"
@@ -815,7 +852,7 @@
           }
         }
       },
-      "Microsoft.CSharp/4.5.0": {},
+      "Microsoft.CSharp/4.7.0": {},
       "Microsoft.Data.SqlClient/5.0.1": {
         "dependencies": {
           "Azure.Identity": "1.6.0",
@@ -1176,7 +1213,7 @@
       },
       "Microsoft.IdentityModel.Tokens/6.21.0": {
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.CSharp": "4.7.0",
           "Microsoft.IdentityModel.Logging": "6.21.0",
           "System.Security.Cryptography.Cng": "5.0.0"
         },
@@ -1201,11 +1238,11 @@
       },
       "Microsoft.NETCore.Platforms/5.0.0": {},
       "Microsoft.NETCore.Targets/1.1.3": {},
-      "Microsoft.OpenApi/1.2.3": {
+      "Microsoft.OpenApi/1.3.1": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
-            "assemblyVersion": "1.2.3.0",
-            "fileVersion": "1.2.3.0"
+            "assemblyVersion": "1.3.1.0",
+            "fileVersion": "1.3.1.0"
           }
         }
       },
@@ -1593,6 +1630,18 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
+      "Scrutor/3.3.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
+          "Microsoft.Extensions.DependencyModel": "7.0.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Scrutor.dll": {
+            "assemblyVersion": "3.0.2.0",
+            "fileVersion": "3.0.2.0"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.2.3": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "3.0.0",
@@ -1601,9 +1650,32 @@
           "Swashbuckle.AspNetCore.SwaggerUI": "6.2.3"
         }
       },
+      "Swashbuckle.AspNetCore.Filters/7.0.6": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "7.0.0",
+          "Microsoft.OpenApi": "1.3.1",
+          "Scrutor": "3.3.0",
+          "Swashbuckle.AspNetCore.Filters.Abstractions": "7.0.6",
+          "Swashbuckle.AspNetCore.SwaggerGen": "6.2.3"
+        },
+        "runtime": {
+          "lib/net5.0/Swashbuckle.AspNetCore.Filters.dll": {
+            "assemblyVersion": "7.0.6.0",
+            "fileVersion": "7.0.6.0"
+          }
+        }
+      },
+      "Swashbuckle.AspNetCore.Filters.Abstractions/7.0.6": {
+        "runtime": {
+          "lib/net5.0/Swashbuckle.AspNetCore.Filters.Abstractions.dll": {
+            "assemblyVersion": "7.0.6.0",
+            "fileVersion": "7.0.6.0"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore.Swagger/6.2.3": {
         "dependencies": {
-          "Microsoft.OpenApi": "1.2.3"
+          "Microsoft.OpenApi": "1.3.1"
         },
         "runtime": {
           "lib/net6.0/Swashbuckle.AspNetCore.Swagger.dll": {
@@ -2458,6 +2530,20 @@
       "serviceable": false,
       "sha512": ""
     },
+    "AutoMapper/12.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0Rmg0zI5AFu1O/y//o9VGyhxKjhggWpk9mOA1tp0DEVx40c61bs+lnQv+0jUq8XbniF7FKgIVvI1perqiMtLrA==",
+      "path": "automapper/12.0.0",
+      "hashPath": "automapper.12.0.0.nupkg.sha512"
+    },
+    "AutoMapper.Extensions.Microsoft.DependencyInjection/12.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XCJ4E3oKrbRl1qY9Mr+7uyC0xZj1+bqQjmQRWTiTKiVuuXTny+7YFWHi20tPjwkMukLbicN6yGlDy5PZ4wyi1w==",
+      "path": "automapper.extensions.microsoft.dependencyinjection/12.0.0",
+      "hashPath": "automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512"
+    },
     "Azure.Core/1.24.0": {
       "type": "package",
       "serviceable": true,
@@ -2499,6 +2585,13 @@
       "sha512": "sha512-uJhZlGMkXDaFYsH8V9S6o1EyvsUqB9mpU4DVBXNr0DXZVzZMhuLP1IkLj5xK3EKlaAcvkFkZv3eSvuz360wb3Q==",
       "path": "messagepackanalyzer/2.1.152",
       "hashPath": "messagepackanalyzer.2.1.152.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ivpWC8L84Y+l9VZOa0uJXPoUE+n3TiSRZpfKxMElRtLMYCeXmz5x3O7CuCJkZ65z1520RWuEZDmHefxiz5TqPg==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/6.0.11",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.6.0.11.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Language/6.0.0": {
       "type": "package",
@@ -2633,12 +2726,12 @@
       "path": "microsoft.codeanalysis.workspaces.msbuild/4.0.0",
       "hashPath": "microsoft.codeanalysis.workspaces.msbuild.4.0.0.nupkg.sha512"
     },
-    "Microsoft.CSharp/4.5.0": {
+    "Microsoft.CSharp/4.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
-      "path": "microsoft.csharp/4.5.0",
-      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
     "Microsoft.Data.SqlClient/5.0.1": {
       "type": "package",
@@ -2871,12 +2964,12 @@
       "path": "microsoft.netcore.targets/1.1.3",
       "hashPath": "microsoft.netcore.targets.1.1.3.nupkg.sha512"
     },
-    "Microsoft.OpenApi/1.2.3": {
+    "Microsoft.OpenApi/1.3.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Nug3rO+7Kl5/SBAadzSMAVgqDlfGjJZ0GenQrLywJ84XGKO0uRqkunz5Wyl0SDwcR71bAATXvSdbdzPrYRYKGw==",
-      "path": "microsoft.openapi/1.2.3",
-      "hashPath": "microsoft.openapi.1.2.3.nupkg.sha512"
+      "sha512": "sha512-2X5CCFJCnx6v86fnpOg4TKlU1ba7MSf1yakeT7VI4846s7i6fOkERwStX94Rcq8wJsLyQYsUitd6vR38viePeA==",
+      "path": "microsoft.openapi/1.3.1",
+      "hashPath": "microsoft.openapi.1.3.1.nupkg.sha512"
     },
     "Microsoft.SqlServer.Server/1.0.0": {
       "type": "package",
@@ -3158,12 +3251,33 @@
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512"
     },
+    "Scrutor/3.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BwqCnFzp2/Z+pq17iztxlIkR/ZANyPRR4PdE57WL1w/JW4AM/2imoxBWTL3+G+YXA46ce4s9OUgwWqTXYrtI8A==",
+      "path": "scrutor/3.3.0",
+      "hashPath": "scrutor.3.3.0.nupkg.sha512"
+    },
     "Swashbuckle.AspNetCore/6.2.3": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-cnzQDn0Le+hInsw2SYwlOhOCPXpYi/szcvnyqZJ12v+QyrLBwAmWXBg6RIyHB18s/mLeywC+Rg2O9ndz0IUNYQ==",
       "path": "swashbuckle.aspnetcore/6.2.3",
       "hashPath": "swashbuckle.aspnetcore.6.2.3.nupkg.sha512"
+    },
+    "Swashbuckle.AspNetCore.Filters/7.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6qhc97TOu/gAd6jFUcUt5fV5oa6Nf+30xETPHCP5GjiSwkN33uTXJqiqEdgjEYm/Lv8IRDuKJQpMXe9JsJNaGw==",
+      "path": "swashbuckle.aspnetcore.filters/7.0.6",
+      "hashPath": "swashbuckle.aspnetcore.filters.7.0.6.nupkg.sha512"
+    },
+    "Swashbuckle.AspNetCore.Filters.Abstractions/7.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MeOn/AQv5RA5Uh3TUrvnDn1XjCRpwKn9e342Hny1drcgzyvBFA/+G/tfmEzrjYjy3CbY4MJFYLIYjN4B3OurkQ==",
+      "path": "swashbuckle.aspnetcore.filters.abstractions/7.0.6",
+      "hashPath": "swashbuckle.aspnetcore.filters.abstractions.7.0.6.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore.Swagger/6.2.3": {
       "type": "package",
