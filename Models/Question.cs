@@ -10,6 +10,7 @@ namespace FinalSurveyPractice.Models;
 public partial class Question
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid IdQuestion { get; set; }
 
     [StringLength(50)]

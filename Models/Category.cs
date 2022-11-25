@@ -10,6 +10,7 @@ namespace FinalSurveyPractice.Models;
 public partial class Category
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid IdCategory { get; set; }
 
     [StringLength(50)]

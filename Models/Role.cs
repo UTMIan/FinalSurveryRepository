@@ -10,6 +10,7 @@ namespace FinalSurveyPractice.Models;
 public partial class Role
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid IdRole { get; set; }
 
     [StringLength(50)]

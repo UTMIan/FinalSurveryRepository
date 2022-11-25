@@ -10,6 +10,7 @@ namespace FinalSurveyPractice.Models;
 public partial class QuestionAnswer
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid IdQuestionAnswer { get; set; }
 
     [Unicode(false)]
