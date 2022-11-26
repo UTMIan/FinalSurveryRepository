@@ -9,6 +9,7 @@ using FinalSurveyPractice.Data;
 using FinalSurveyPractice.Models;
 using FinalSurveyPractice.Services;
 using FinalSurveyPractice.DTOs.AuthUser;
+using AutoMapper;
 
 namespace FinalSurveyPractice.Controllers
 {
@@ -18,11 +19,13 @@ namespace FinalSurveyPractice.Controllers
     {
         private readonly DataContext _context;
         private readonly IAuthService _authService;
+        private readonly IMapper _mapper;
 
-        public AuthController(DataContext context, IAuthService authService)
+        public AuthController(DataContext context, IAuthService authService, IMapper mapper)
         {
             _context = context;
             _authService = authService;
+            _mapper = mapper;
         }
 
         // JWT ----------------------------------------------------------------
@@ -59,69 +62,64 @@ namespace FinalSurveyPractice.Controllers
             return Ok(response);
         }
 
-        // Metodos por defecto ----------------------------------------------------------------
+// Metodos por defecto ----------------------------------------------------------------
 
         // GET: api/Auth
-        [HttpGet]
+        [HttpGet("User")]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
-            return await _context.User.ToListAsync();
+            var response = new ServiceResponse<IEnumerable<GetUserDto>>();
+
+            var user = await _context.User.ToListAsync();
+
+            response.Data = user.Select(c => _mapper.Map<GetUserDto>(c)).ToList();
+
+            return Ok(response);
         }
 
         // GET: api/Auth/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        [HttpGet("User{Id}")]
+        public async Task<ActionResult<ServiceResponse<IEnumerable<GetUserDto>>>> GetUser(int id)
         {
-            var user = await _context.User.FindAsync(id);
+            var resp = new ServiceResponse<GetUserDto>();
+            var user = await _context.User.FirstOrDefaultAsync(c => c.IdUser == id);
 
-            if (user == null)
+            if (user != null)
             {
-                return NotFound();
+                resp.Data = _mapper.Map<GetUserDto>(user);
+            }
+            else
+            {
+                resp.Success = false;
+                resp.Message = "User not found";
+
+                return NotFound(resp);
             }
 
-            return user;
+            return Ok(resp);
         }
 
         // PUT: api/Auth/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<ActionResult<ServiceResponse<GetUserDto>>> PutUser(UpdateUserDto user, int id)
         {
-            if (id != user.IdUser)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
+            var resp = await _authService.UpdateUser(
+                new User
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                    Name = user.Name,
+                    FirstSurname = user.FirstSurname,
+                    LastSurname = user.LastSurname,
+                    Status = user.Status,
+                    Photo = user.Photo,
+                }, user.Password, id
+            );
+
+            if (!resp.Success)
+            {
+                return BadRequest(resp);
             }
-
-            return NoContent();
-        }
-
-        // POST: api/Auth
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-            _context.User.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.IdUser }, user);
+            return Ok(resp);
         }
 
         // DELETE: api/Auth/5

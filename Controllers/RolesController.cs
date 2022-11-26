@@ -35,7 +35,7 @@ namespace FinalSurveyPractice.Controllers
 
             resp.Data = role.Select(c => _mapper.Map<GetRoleDto>(c)).ToList();
 
-            return Ok(resp);
+            return resp;
         }
 
         [HttpGet("{id}")]
