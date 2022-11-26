@@ -38,6 +38,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(resp);
         }
 
+        [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetSurveyDto>>> GetSurvey(Guid id)
         {
             var resp = new ServiceResponse<GetSurveyDto>();
@@ -58,7 +59,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(resp);
         }
 
-        // PUT: api/Categories/5
+        // PUT: api/Surveys/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<ActionResult<ServiceResponse<GetSurveyDto>>> PutSurvey(UpdateSurveyDto survey, int id)

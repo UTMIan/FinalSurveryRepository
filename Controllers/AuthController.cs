@@ -29,7 +29,7 @@ namespace FinalSurveyPractice.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegisterDto request)
         {
-            var rp = await _authService.Register(
+            var resp = await _authService.Register(
                 new User
                 {
                     Name = request.Name,
@@ -40,11 +40,11 @@ namespace FinalSurveyPractice.Controllers
                 }, request.Password
             );
 
-            if (!rp.Success)
+            if (!resp.Success)
             {
-                return BadRequest(rp);
+                return BadRequest(resp);
             }
-            return Ok(rp);
+            return Ok(resp);
         }
 
         [HttpPost("login")]

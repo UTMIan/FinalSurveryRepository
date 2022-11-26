@@ -25,7 +25,7 @@ namespace FinalSurveyPractice.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Categories
+        // GET: api/QuestionAnswer
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<IEnumerable<GetQuestionAnswerDto>>>> GetQuestionAnswer()
         {
@@ -38,6 +38,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(resp);
         }
 
+        [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetQuestionAnswerDto>>> GetQuestionAnswer(Guid id)
         {
             var resp = new ServiceResponse<GetQuestionAnswerDto>();
@@ -58,7 +59,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(resp);
         }
 
-        // PUT: api/Categories/5
+        // PUT: api/QuestionAnswer/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<ActionResult<ServiceResponse<GetQuestionAnswerDto>>> PutQuestionAnswer(UpdateQuestionAnswerDto questAnswer, Guid id)
@@ -96,7 +97,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(resp);
         }
 
-        // POST: api/Categories
+        // POST: api/QuestionAnswer
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<IEnumerable<GetQuestionAnswerDto>>>> PostQuestionAnswer(AddQuestionAnswerDto questAnswer)
@@ -114,7 +115,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(serviceResponse);
         }
 
-        // DELETE: api/Categories/5
+        // DELETE: api/QuestionAnswers/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<GetQuestionAnswerDto>>> DeleteQuestionAnswer(Guid id)
         {

@@ -38,6 +38,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(resp);
         }
 
+        [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetUserAnswerDto>>> GetUserAnswer(Guid id)
         {
             var resp = new ServiceResponse<GetUserAnswerDto>();
@@ -114,7 +115,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(serviceResponse);
         }
 
-        // DELETE: api/Categories/5
+        // DELETE: api/UserAnswers/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<GetUserAnswerDto>>> DeleteUserAnswer(Guid id)
         {

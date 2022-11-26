@@ -38,6 +38,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(resp);
         }
 
+        [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetQuestionDto>>> GetQuestion(Guid id)
         {
             var resp = new ServiceResponse<GetQuestionDto>();

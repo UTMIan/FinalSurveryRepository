@@ -25,7 +25,7 @@ namespace FinalSurveyPractice.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Categories
+        // GET: api/Roles
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<IEnumerable<GetRoleDto>>>> GetRole()
         {
@@ -38,6 +38,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(resp);
         }
 
+        [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetRoleDto>>> GetRole(Guid id)
         {
             var resp = new ServiceResponse<GetRoleDto>();
@@ -58,7 +59,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(resp);
         }
 
-        // PUT: api/Categories/5
+        // PUT: api/Roles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<ActionResult<ServiceResponse<GetRoleDto>>> PutRole(UpdateRoleDto role, Guid id)
@@ -96,7 +97,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(resp);
         }
 
-        // POST: api/Categories
+        // POST: api/Roles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<IEnumerable<GetRoleDto>>>> PostCategory(AddRoleDto role)
@@ -114,7 +115,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(serviceResponse);
         }
 
-        // DELETE: api/Categories/5
+        // DELETE: api/Roles/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<GetRoleDto>>> DeleteRole(Guid id)
         {
