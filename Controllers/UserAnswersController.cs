@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -100,11 +100,11 @@ namespace FinalSurveyPractice.Controllers
         // POST: api/UserAnswers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<IEnumerable<GetUserAnswerDto>>>> PostUserAnswer(AddUserAnswerDto category)
+        public async Task<ActionResult<ServiceResponse<IEnumerable<GetUserAnswerDto>>>> PostUserAnswer(AddUserAnswerDto userans)
         {
             var serviceResponse = new ServiceResponse<IEnumerable<GetUserAnswerDto>>();
 
-            UserAnswer usans = _mapper.Map<UserAnswer>(category);
+            UserAnswer usans = _mapper.Map<UserAnswer>(userans);
 
             _context.UserAnswer.Add(usans);
 

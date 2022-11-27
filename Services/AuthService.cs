@@ -178,7 +178,6 @@ namespace FinalSurveyPractice.Services
             {
                 return true;
             }
-
             return false;
         }
     }

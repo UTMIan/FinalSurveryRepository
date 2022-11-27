@@ -9,6 +9,8 @@ using FinalSurveyPractice.Data;
 using FinalSurveyPractice.Models;
 using AutoMapper;
 using FinalSurveyPractice.DTOs.QuestionAnswer;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace FinalSurveyPractice.Controllers
 {
@@ -99,7 +101,8 @@ namespace FinalSurveyPractice.Controllers
 
         // POST: api/QuestionAnswer
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Admin")]
+
         public async Task<ActionResult<ServiceResponse<IEnumerable<GetQuestionAnswerDto>>>> PostQuestionAnswer(AddQuestionAnswerDto questAnswer)
         {
             var serviceResponse = new ServiceResponse<IEnumerable<GetQuestionAnswerDto>>();
@@ -116,7 +119,7 @@ namespace FinalSurveyPractice.Controllers
         }
 
         // DELETE: api/QuestionAnswers/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<ServiceResponse<GetQuestionAnswerDto>>> DeleteQuestionAnswer(Guid id)
         {
             ServiceResponse<IEnumerable<GetQuestionAnswerDto>> serviceResponse = new ServiceResponse<IEnumerable<GetQuestionAnswerDto>>();

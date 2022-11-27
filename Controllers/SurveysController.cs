@@ -99,7 +99,7 @@ namespace FinalSurveyPractice.Controllers
 
         // POST: api/Survey
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<ActionResult<ServiceResponse<IEnumerable<GetSurveyDto>>>> PostSurvey(AddSurveyDto survey)
         {
             var serviceResponse = new ServiceResponse<IEnumerable<GetSurveyDto>>();
@@ -116,7 +116,7 @@ namespace FinalSurveyPractice.Controllers
         }
 
         // DELETE: api/Surveys/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<ServiceResponse<GetSurveyDto>>> DeleteSurvey(Guid id)
         {
             ServiceResponse<IEnumerable<GetSurveyDto>> serviceResponse = new ServiceResponse<IEnumerable<GetSurveyDto>>();
