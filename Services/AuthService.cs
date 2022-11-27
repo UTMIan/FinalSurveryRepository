@@ -1,4 +1,5 @@
-﻿using FinalSurveyPractice.Data;
+﻿using AutoMapper;
+using FinalSurveyPractice.Data;
 using FinalSurveyPractice.DTOs.AuthUser;
 using FinalSurveyPractice.Models;
 using Microsoft.EntityFrameworkCore;
@@ -12,16 +13,19 @@ namespace FinalSurveyPractice.Services
     {
         private readonly DataContext _context;
         private readonly IConfiguration _configuration;
-        public AuthService(DataContext context, IConfiguration configuration)
+        private readonly IMapper _mapper;
+        public AuthService(DataContext context, IConfiguration configuration, IMapper mapper)
         {
             _context = context;
             _configuration = configuration;
+            _mapper = mapper;
         }
 //----------------------------------------------------------------------------------------
         public async Task<ServiceResponse<string>> Login(string username, string password)
         {
             var resp = new ServiceResponse<string>();
             var user = await _context.User
+                .Include(r => r.Role)
                 .FirstOrDefaultAsync(c => c.Name.ToLower().Equals(username.ToLower()));
 
             if (username == null)
@@ -66,7 +70,7 @@ namespace FinalSurveyPractice.Services
             return resp;
         }
 
-        public async Task<ServiceResponse<GetUserDto>> UpdateUser(User user, string password, int id)
+        public async Task<ServiceResponse<GetUserDto>> UpdateIdUser(User user, string password, int id)
         {
             throw new NotImplementedException();
         }
@@ -110,6 +114,11 @@ namespace FinalSurveyPractice.Services
                 //new Claim(ClaimTypes.Role, consumer.Role)
             };
 
+            foreach (var role in user.Role)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role.Name));
+            }
+
             SymmetricSecurityKey key = new SymmetricSecurityKey(System.Text.Encoding.UTF8
                 .GetBytes(_configuration.GetSection("AppSettings:Token").Value));
 
@@ -125,6 +134,52 @@ namespace FinalSurveyPractice.Services
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        public async Task<ServiceResponse<GetUserDto>> UpdateUser(User user, string password, int id)
+        {
+            ServiceResponse<GetUserDto> response = new ServiceResponse<GetUserDto>();
+
+            try
+            {
+                if (await UserIdExist(id))
+                {
+                    CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
+
+                    user.PasswordHash = passwordHash;
+                    user.PasswordSalt = passwordSalt;
+                    user.IdUser = id;
+
+                    _context.Entry(user).State = EntityState.Modified;
+
+                    await _context.SaveChangesAsync();
+
+                    response.Data = _mapper.Map<GetUserDto>(user);
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "Usuario no Encontrado";
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+
+            return response;
+            //throw new NotImplementedException();
+        }
+
+        public async Task<bool> UserIdExist(int id)
+        {
+            if (await _context.User.AnyAsync(u => u.IdUser.Equals(id)))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

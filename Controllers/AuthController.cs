@@ -10,6 +10,7 @@ using FinalSurveyPractice.Models;
 using FinalSurveyPractice.Services;
 using FinalSurveyPractice.DTOs.AuthUser;
 using AutoMapper;
+using FinalSurveyPractice.DTOs.Category;
 
 namespace FinalSurveyPractice.Controllers
 {
@@ -28,7 +29,7 @@ namespace FinalSurveyPractice.Controllers
             _mapper = mapper;
         }
 
-        // JWT ----------------------------------------------------------------
+        // JWT ----------------------------------------------------------------------------
         [HttpPost("register")]
         public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegisterDto request)
         {
@@ -66,27 +67,31 @@ namespace FinalSurveyPractice.Controllers
 
         // GET: api/Auth
         [HttpGet("User")]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<ServiceResponse<IEnumerable<GetUserDto>>>> GetUser()
         {
-            var response = new ServiceResponse<IEnumerable<GetUserDto>>();
+            var resp = new ServiceResponse<IEnumerable<GetUserDto>>();
 
-            var user = await _context.User.ToListAsync();
+            var usr = await _context.User
+                .Include(r => r.Role)
+                .ToListAsync();
 
-            response.Data = user.Select(c => _mapper.Map<GetUserDto>(c)).ToList();
+            resp.Data = usr.Select(c => _mapper.Map<GetUserDto>(c)).ToList();
 
-            return Ok(response);
+            return Ok(resp);
         }
 
         // GET: api/Auth/5
-        [HttpGet("User{Id}")]
-        public async Task<ActionResult<ServiceResponse<IEnumerable<GetUserDto>>>> GetUser(int id)
+        [HttpGet("User/{id}")]
+        public async Task<ActionResult<ServiceResponse<GetUserDto>>> GetUserId(int id)
         {
             var resp = new ServiceResponse<GetUserDto>();
-            var user = await _context.User.FirstOrDefaultAsync(c => c.IdUser == id);
+            var usr = await _context.User
+                .Include(r => r.Role)
+                .FirstOrDefaultAsync(c => c.IdUser == id);
 
-            if (user != null)
+            if (usr != null)
             {
-                resp.Data = _mapper.Map<GetUserDto>(user);
+                resp.Data = _mapper.Map<GetUserDto>(usr);
             }
             else
             {
@@ -102,40 +107,98 @@ namespace FinalSurveyPractice.Controllers
         // PUT: api/Auth/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetUserDto>>> PutUser(UpdateUserDto user, int id)
+        public async Task<ActionResult<ServiceResponse<IEnumerable<GetUserDto>>>> PutUser(UpdateUserDto user, int id)
         {
-            var resp = await _authService.UpdateUser(
-                new User
-                {
-                    Name = user.Name,
-                    FirstSurname = user.FirstSurname,
-                    LastSurname = user.LastSurname,
-                    Status = user.Status,
-                    Photo = user.Photo,
-                }, user.Password, id
-            );
+            var response = await _authService.UpdateUser(
+                    new User
+                    {
+                        Name = user.Name,
+                        FirstSurname = user.FirstSurname,
+                        LastSurname = user.LastSurname,
+                        Status = user.Status,
+                        Photo = user.Photo,
+                    }, user.Password, id
+                );
 
-            if (!resp.Success)
+            if (!response.Success)
             {
-                return BadRequest(resp);
+                return BadRequest(response);
             }
-            return Ok(resp);
+            return Ok(response);
+        }
+
+        [HttpPost("userRole")]
+        public async Task<ActionResult<ServiceResponse<GetUserDto>>> AddUserRole(AddUserRoleDto newUserRole)
+        {
+            var serviceResp = new ServiceResponse<GetUserDto>();
+
+            try
+            {
+                var user = await _context.User
+                                .Include(r => r.Role)
+                                .FirstOrDefaultAsync(u => u.IdUser == newUserRole.UsersIdUse);
+                if (user == null)
+                {
+                    serviceResp.Success = false;
+                    serviceResp.Message = "User No Encontrado";
+                    return NotFound(serviceResp);
+                }
+
+                var role = await _context.Role
+                                .FirstOrDefaultAsync(r => r.IdRole == newUserRole.RoleIdRole);
+                if (role == null)
+                {
+                    serviceResp.Success = false;
+                    serviceResp.Message = "Role No Encontrado";
+                    return NotFound(serviceResp);
+                }
+
+                user.Role.Add(role);
+                await _context.SaveChangesAsync();
+                serviceResp.Data = _mapper.Map<GetUserDto>(user);
+            }
+            catch (Exception ex)
+            {
+                serviceResp.Success = false;
+                serviceResp.Message = ex.Message;
+            }
+
+            return serviceResp;
         }
 
         // DELETE: api/Auth/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<ActionResult<ServiceResponse<GetUserDto>>> DeleteUser(int id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            ServiceResponse<IEnumerable<GetUserDto>> serviceResponse = new();
+
+            try
             {
-                return NotFound();
+                User usr = await _context.User.FirstOrDefaultAsync(c => c.IdUser.ToString().ToUpper() == id.ToString().ToUpper());
+
+                if (usr != null)
+                {
+                    _context.User.Remove(usr);
+                    await _context.SaveChangesAsync();
+
+                    serviceResponse.Data = _context.User.Select(c => _mapper.Map<GetUserDto>(c)).ToList();
+                }
+                else
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "CUser no se encontró";
+
+                    return NotFound(serviceResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
             }
 
-            _context.User.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok(serviceResponse);
         }
 
         private bool UserExists(int id)
@@ -144,3 +207,4 @@ namespace FinalSurveyPractice.Controllers
         }
     }
 }
+

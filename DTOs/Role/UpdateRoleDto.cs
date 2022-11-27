@@ -2,6 +2,6 @@
 {
     public class UpdateRoleDto
     {
-        public string RoleName { get; set; } = null!;
+        public string Name { get; set; } = null!;
     }
 }

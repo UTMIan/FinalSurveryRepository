@@ -2,7 +2,7 @@
 {
     public class GetRoleDto
     {
-        public Guid RoleId { get; set; }
-        public string RoleName { get; set; } = string.Empty;
+        public Guid IdRole { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

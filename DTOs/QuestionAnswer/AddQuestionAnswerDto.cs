@@ -10,6 +10,6 @@ namespace FinalSurveyPractice.DTOs.QuestionAnswer
 
         public bool Status { get; set; }
 
-        public Guid QuestionId { get; set; }
+        public Guid IdQuestion { get; set; }
     }
 }

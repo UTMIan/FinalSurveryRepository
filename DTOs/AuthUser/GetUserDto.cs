@@ -1,4 +1,6 @@
-﻿namespace FinalSurveyPractice.DTOs.AuthUser
+﻿using FinalSurveyPractice.DTOs.Role;
+
+namespace FinalSurveyPractice.DTOs.AuthUser
 {
     public class GetUserDto
     {
@@ -10,5 +12,6 @@
         public byte[] PasswordSalt { get; set; } = null!;
         public byte[]? Photo { get; set; }
         public bool? Status { get; set; }
+        public List<GetRoleDto> Role { get; set; }
     }
 }

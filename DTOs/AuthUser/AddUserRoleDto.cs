@@ -2,8 +2,8 @@
 {
     public class AddUserRoleDto
     {
-        public Guid RoleId { get; set; }
-        public string UserId { get; set; }
-        public bool Status { get; set; } = true;
+        public Guid RoleIdRole { get; set; }
+        public int UsersIdUse { get; set; }
     }
 }
+

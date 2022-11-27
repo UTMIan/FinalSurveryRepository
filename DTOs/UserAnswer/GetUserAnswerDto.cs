@@ -6,7 +6,7 @@ namespace FinalSurveyPractice.DTOs.UserAnswer
     {
         public Guid IdUserAnswer { get; set; }
         public string UserAns { get; set; } = null!;
-        public int UserId { get; set; }
-        public Guid QuestionId { get; set; }
+        public int IdUser { get; set; }
+        public Guid IdQuestion { get; set; }
     }
 }
