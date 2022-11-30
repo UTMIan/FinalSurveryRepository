@@ -9,6 +9,7 @@ using FinalSurveyPractice.Data;
 using FinalSurveyPractice.Models;
 using AutoMapper;
 using FinalSurveyPractice.DTOs.Survey;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalSurveyPractice.Controllers
 {

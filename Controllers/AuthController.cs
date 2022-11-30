@@ -82,7 +82,7 @@ namespace FinalSurveyPractice.Controllers
 
         // GET: api/Auth/5
         [HttpGet("User/{id}")]
-        public async Task<ActionResult<ServiceResponse<GetUserDto>>> GetUserId(int id)
+        public async Task<ActionResult<ServiceResponse<GetUserDto>>> GetUserId(Guid id)
         {
             var resp = new ServiceResponse<GetUserDto>();
             var usr = await _context.User
@@ -107,7 +107,7 @@ namespace FinalSurveyPractice.Controllers
         // PUT: api/Auth/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<ServiceResponse<IEnumerable<GetUserDto>>>> PutUser(UpdateUserDto user, int id)
+        public async Task<ActionResult<ServiceResponse<IEnumerable<GetUserDto>>>> PutUser(UpdateUserDto user, Guid id)
         {
             var response = await _authService.UpdateUser(
                     new User
@@ -168,7 +168,7 @@ namespace FinalSurveyPractice.Controllers
 
         // DELETE: api/Auth/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetUserDto>>> DeleteUser(int id)
+        public async Task<ActionResult<ServiceResponse<GetUserDto>>> DeleteUser(Guid id)
         {
             ServiceResponse<IEnumerable<GetUserDto>> serviceResponse = new();
 
@@ -186,7 +186,7 @@ namespace FinalSurveyPractice.Controllers
                 else
                 {
                     serviceResponse.Success = false;
-                    serviceResponse.Message = "CUser no se encontró";
+                    serviceResponse.Message = "Usuario no encontrado";
 
                     return NotFound(serviceResponse);
                 }
@@ -201,7 +201,7 @@ namespace FinalSurveyPractice.Controllers
             return Ok(serviceResponse);
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(Guid id)
         {
             return _context.User.Any(e => e.IdUser == id);
         }

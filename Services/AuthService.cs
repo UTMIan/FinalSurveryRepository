@@ -47,9 +47,9 @@ namespace FinalSurveyPractice.Services
         }
     
 
-        public async Task<ServiceResponse<int>> Register(User user, string password)
+        public async Task<ServiceResponse<string>> Register(User user, string password)
         {
-            ServiceResponse<int> resp = new ServiceResponse<int>();
+            ServiceResponse<string> resp = new ServiceResponse<string>();
             if (await UserExist(user.Name))
             {
                 resp.Success = false;
@@ -65,14 +65,9 @@ namespace FinalSurveyPractice.Services
             _context.User.Add(user);
 
             await _context.SaveChangesAsync();
-            resp.Data = user.IdUser;
+            resp.Data = user.IdUser.ToString();
 
             return resp;
-        }
-
-        public async Task<ServiceResponse<GetUserDto>> UpdateIdUser(User user, string password, int id)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<bool> UserExist(string username)
@@ -136,7 +131,7 @@ namespace FinalSurveyPractice.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<ServiceResponse<GetUserDto>> UpdateUser(User user, string password, int id)
+        public async Task<ServiceResponse<GetUserDto>> UpdateUser(User user, string password, Guid id)
         {
             ServiceResponse<GetUserDto> response = new ServiceResponse<GetUserDto>();
 
@@ -172,7 +167,7 @@ namespace FinalSurveyPractice.Services
             //throw new NotImplementedException();
         }
 
-        public async Task<bool> UserIdExist(int id)
+        public async Task<bool> UserIdExist(Guid id)
         {
             if (await _context.User.AnyAsync(u => u.IdUser.Equals(id)))
             {

@@ -10,7 +10,7 @@ namespace FinalSurveyPractice.Models;
 public partial class User
 {
     [Key]
-    public int IdUser { get; set; }
+    public Guid IdUser { get; set; }
 
     [StringLength(50)]
     [Unicode(false)]
