@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinalSurveyPractice.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221130062807_CreateFinal")]
-    partial class CreateFinal
+    [Migration("20221209230537_Final")]
+    partial class Final
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FinalSurveyPractice.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateInitial : Migration
+    public partial class Final : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,8 +39,7 @@ namespace FinalSurveyPractice.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    IdUser = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     FirstSurname = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     LastSurname = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true),
@@ -81,7 +80,7 @@ namespace FinalSurveyPractice.Migrations
                 columns: table => new
                 {
                     RoleIdRole = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UsersIdUser = table.Column<int>(type: "int", nullable: false)
+                    UsersIdUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -147,7 +146,7 @@ namespace FinalSurveyPractice.Migrations
                 {
                     IdUserAnswer = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserAns = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     QuestionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
